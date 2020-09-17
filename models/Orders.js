@@ -65,7 +65,8 @@ const OrderSchema = new Schema({
     isReady: Boolean,
     isPicked: Boolean,
     isAccepted: Boolean, 
-    isRejected: Boolean
+    isRejected: Boolean,
+    isHomeDelivery: Boolean
 });
 
 module.exports = Order = mongoose.model('Order', OrderSchema);
