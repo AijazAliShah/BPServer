@@ -703,62 +703,229 @@ app.get('/wallet/amount/:id/:sid', (req, res) => {
 
 app.post('/add/walmart/EWallet', async (req, res) => {
   console.log(req.body)
-  let walmart = new Walmart({
-    id: "1",
-    name: req.body.name,
-    token: req.body.token
-       
-  });
 
-  walmart.save(function (err, result) {
-    console.log(err,result)
-    if (err) {
-      console.error(err);
-      res.status(200).send({
-        success: 'false',
-        message: 'walmart not post',
-        walmart,
-      })
-    } else {
-      res.status(200).send({
-        success: 'true',
-        message: 'walmart post',
-        walmart,
-      })
-    }
-  });
+  Walmart.find({name: req.body.name})
+  .then(resp => {
+      if(resp.length > 0){
+        res.status(200).send({
+          success: 'true',
+          message: 'User exist'
+        })
+      }else{
+
+        Walmart.find({})
+          .then(resp => {
+              var idNo = resp.length
+              
+              let walmart = new Walmart({
+                id: Number(idNo+1),
+                name: req.body.name,
+                token: req.body.token
+                  
+              });
+
+              walmart.save(function (err, result) {
+                console.log(err,result)
+                if (err) {
+                  console.error(err);
+                  res.status(200).send({
+                    success: 'false',
+                    message: 'walmart not post',
+                    walmart,
+                  })
+                } else {
+
+            
+                    User.updateOne({ name: req.body.name }, {
+                      $set: {
+                        id: Number(idNo+1)
+                      }
+                    }, { upsert: true }, function (err, user) {
+                      // res.status(200).send({
+                      //   success: 'true',
+                      //   message: 'store updated'
+                      // })
+                    });
+
+                  res.status(200).send({
+                    success: 'true',
+                    message: 'walmart post',
+                    walmart,
+                  })
+                }
+              });
+
+          })
+          .catch(err => res.status(404).json(err));
+          
+      }
+  })
+  .catch(err => res.status(404).json(err));
+
 
 });
+
 
 
 app.post('/add/imtiaz/EWallet', async (req, res) => {
   console.log(req.body)
-  let imtiaz = new Imtiaz({
-    id: "1",
-    name: req.body.name,
-    token: req.body.token
-       
-  });
 
-  imtiaz.save(function (err, result) {
-    console.log(err,result)
-    if (err) {
-      console.error(err);
-      res.status(200).send({
-        success: 'false',
-        message: 'imtiaz not post',
-        imtiaz,
-      })
-    } else {
-      res.status(200).send({
-        success: 'true',
-        message: 'imtiaz post',
-        imtiaz,
-      })
-    }
-  });
+  Imtiaz.find({name: req.body.name})
+  .then(resp => {
+      if(resp.length > 0){
+        res.status(200).send({
+          success: 'true',
+          message: 'User exist'
+        })
+      }else{
+
+        Imtiaz.find({})
+          .then(resp => {
+              var idNo = resp.length
+              
+              let imtiaz = new Imtiaz({
+                id: Number(idNo+1),
+                name: req.body.name,
+                token: req.body.token
+                  
+              });
+
+              imtiaz.save(function (err, result) {
+                console.log(err,result)
+                if (err) {
+                  console.error(err);
+                  res.status(200).send({
+                    success: 'false',
+                    message: 'imtiaz not post',
+                    imtiaz,
+                  })
+                } else {
+
+            
+                    User.updateOne({ name: req.body.name }, {
+                      $set: {
+                        id: Number(idNo+1)
+                      }
+                    }, { upsert: true }, function (err, user) {
+                      // res.status(200).send({
+                      //   success: 'true',
+                      //   message: 'store updated'
+                      // })
+                    });
+
+                  res.status(200).send({
+                    success: 'true',
+                    message: 'imtiaz post',
+                    imtiaz,
+                  })
+                }
+              });
+
+          })
+          .catch(err => res.status(404).json(err));
+          
+      }
+  })
+  .catch(err => res.status(404).json(err));
+
 
 });
+
+
+app.post('/add/haseeb/EWallet', async (req, res) => {
+  console.log(req.body)
+
+  Haseeb.find({name: req.body.name})
+  .then(resp => {
+      if(resp.length > 0){
+        res.status(200).send({
+          success: 'true',
+          message: 'User exist'
+        })
+      }else{
+
+        Haseeb.find({})
+          .then(resp => {
+              var idNo = resp.length
+              
+              let haseeb = new Haseeb({
+                id: Number(idNo+1),
+                name: req.body.name,
+                token: req.body.token
+                  
+              });
+
+              haseeb.save(function (err, result) {
+                console.log(err,result)
+                if (err) {
+                  console.error(err);
+                  res.status(200).send({
+                    success: 'false',
+                    message: 'haseeb not post',
+                    haseeb,
+                  })
+                } else {
+
+            
+                    User.updateOne({ name: req.body.name }, {
+                      $set: {
+                        id: Number(idNo+1)
+                      }
+                    }, { upsert: true }, function (err, user) {
+                      // res.status(200).send({
+                      //   success: 'true',
+                      //   message: 'store updated'
+                      // })
+                    });
+
+                  res.status(200).send({
+                    success: 'true',
+                    message: 'haseeb post',
+                    haseeb,
+                  })
+                }
+              });
+
+          })
+          .catch(err => res.status(404).json(err));
+          
+      }
+  })
+  .catch(err => res.status(404).json(err));
+
+
+});
+
+
+
+// app.post('/add/imtiaz/EWallet', async (req, res) => {
+//   console.log(req.body)
+//   let imtiaz = new Imtiaz({
+//     id: "1",
+//     name: req.body.name,
+//     token: req.body.token
+       
+//   });
+
+//   imtiaz.save(function (err, result) {
+//     console.log(err,result)
+//     if (err) {
+//       console.error(err);
+//       res.status(200).send({
+//         success: 'false',
+//         message: 'imtiaz not post',
+//         imtiaz,
+//       })
+//     } else {
+//       res.status(200).send({
+//         success: 'true',
+//         message: 'imtiaz post',
+//         imtiaz,
+//       })
+//     }
+//   });
+
+// });
 
 
 app.post('/add/haseeb/EWallet', async (req, res) => {
@@ -874,7 +1041,7 @@ app.get('/get/token/:id/:sname', (req, res) => {
 
     axios
     .get(
-      "http://localhost:3000/haseeb/"+req.params.id
+      "https://mysterious-anchorage-22807.herokuapp.com/haseeb/"+req.params.id
     )
     .then((resp) => {
         console.log("i got the response", resp.data)
@@ -884,7 +1051,7 @@ app.get('/get/token/:id/:sname', (req, res) => {
   }else if(req.params.sname === "Wallmart"){
     axios
     .get(
-      "http://localhost:3000/walmart/"+req.params.id
+      "https://mysterious-anchorage-22807.herokuapp.com/walmart/"+req.params.id
     )
     .then((resp) => {
         console.log("i got the response", resp.data)
@@ -894,7 +1061,7 @@ app.get('/get/token/:id/:sname', (req, res) => {
   }else if(req.params.sname === "Imtiaz"){
     axios
     .get(
-      "http://localhost:3000/imtiaz/"+req.params.id
+      "https://mysterious-anchorage-22807.herokuapp.com/imtiaz/"+req.params.id
     )
     .then((resp) => {
         console.log("i got the response", resp.data)
