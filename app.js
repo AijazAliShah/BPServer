@@ -1172,7 +1172,7 @@ app.post('/add/refid', async (req, res) => {
 
 app.get('/get/refID/:id', (req, res) => {
 
-  RefID.find({_id: req.params.id})
+  RefID.find({userID: req.params.id})
   .then(refids => {
     res.json(refids);
   })
