@@ -1088,7 +1088,8 @@ app.post('/signup', async (req, res) => {
           email: req.body.email,
           mobile: req.body.mobile,
           password: req.body.password,
-          address: req.body.address
+          address: req.body.address,
+          id: req.body.id
       });
 
       const salt = await bcrypt.genSalt(10);
