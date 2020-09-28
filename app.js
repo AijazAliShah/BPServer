@@ -887,7 +887,7 @@ app.post('/add/haseeb/EWallet', async (req, res) => {
                     userID: req.body.userID
                   }).then(resp => console.log(resp.data))
                     .catch(err => console.log(err))
-                    
+
                     // User.updateOne({ name: req.body.name }, {
                     //   $set: {
                     //     id: Number(idNo+1)
@@ -1172,7 +1172,7 @@ app.post('/add/refid', async (req, res) => {
 
 app.get('/get/refID/:id', (req, res) => {
 
-  RefID.find({userID: req.params.id})
+  RefID.find({_id: req.params.id})
   .then(refids => {
     res.json(refids);
   })
