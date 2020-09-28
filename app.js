@@ -737,7 +737,7 @@ app.post('/add/walmart/EWallet', async (req, res) => {
                 } else {
 
             
-                  axios.post('http://localhost:3000/add/refid',{
+                  axios.post('https://mysterious-anchorage-22807.herokuapp.com/add/refid',{
                     storeName: req.body.storeName,
                     id: Number(idNo+1),
                     userID: req.body.userID
@@ -809,7 +809,7 @@ app.post('/add/imtiaz/EWallet', async (req, res) => {
                   })
                 } else {
 
-                  axios.post('http://localhost:3000/add/refid',{
+                  axios.post('https://mysterious-anchorage-22807.herokuapp.com/add/refid',{
                     storeName: req.body.storeName,
                     id: Number(idNo+1),
                     userID: req.body.userID
@@ -881,7 +881,7 @@ app.post('/add/haseeb/EWallet', async (req, res) => {
                 } else {
 
             
-                  axios.post('http://localhost:3000/add/refid',{
+                  axios.post('https://mysterious-anchorage-22807.herokuapp.com/add/refid',{
                     storeName: req.body.storeName,
                     id: Number(idNo+1),
                     userID: req.body.userID
