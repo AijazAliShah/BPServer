@@ -1182,6 +1182,18 @@ app.get('/get/refID/:id', (req, res) => {
 );
 
 
+app.get('/get/alluser', (req, res) => {
+
+  User.find({})
+  .then(users => {
+    res.json(users);
+  })
+  .catch(err => res.status(404).json(err));
+}
+
+);
+
+
 
 app.put("/edit/user/refID/:id/:refID", async (req, res) => {
   console.log("m", req.params.id)
