@@ -12,6 +12,7 @@ const EWallet = require("./models/EWallet");
 const Haseeb = require("./models/Haseeb");
 const Walmart = require("./models/Walmart"); 
 const Imtiaz = require("./models/Imtiaz");
+const RefID = require("./models/RefID");
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const axios = require('axios');
@@ -736,16 +737,23 @@ app.post('/add/walmart/EWallet', async (req, res) => {
                 } else {
 
             
-                    User.updateOne({ name: req.body.name }, {
-                      $set: {
-                        id: Number(idNo+1)
-                      }
-                    }, { upsert: true }, function (err, user) {
-                      // res.status(200).send({
-                      //   success: 'true',
-                      //   message: 'store updated'
-                      // })
-                    });
+                  axios.post('http://localhost:3000/add/refid',{
+                    storeName: req.body.storeName,
+                    id: Number(idNo+1),
+                    userID: req.body.userID
+                  }).then(resp => console.log(resp.data))
+                    .catch(err => console.log(err))
+
+                  //   User.updateOne({ name: req.body.name }, {
+                  //     $set: {
+                  //       id: Number(idNo+1)
+                  //     }
+                  //   }, { upsert: true }, function (err, user) {
+                  //     // res.status(200).send({
+                  //     //   success: 'true',
+                  //     //   message: 'store updated'
+                  //     // })
+                  //   });
 
                   res.status(200).send({
                     success: 'true',
@@ -801,17 +809,23 @@ app.post('/add/imtiaz/EWallet', async (req, res) => {
                   })
                 } else {
 
+                  axios.post('http://localhost:3000/add/refid',{
+                    storeName: req.body.storeName,
+                    id: Number(idNo+1),
+                    userID: req.body.userID
+                  }).then(resp => console.log(resp.data))
+                    .catch(err => console.log(err))
             
-                    User.updateOne({ name: req.body.name }, {
-                      $set: {
-                        id: Number(idNo+1)
-                      }
-                    }, { upsert: true }, function (err, user) {
-                      // res.status(200).send({
-                      //   success: 'true',
-                      //   message: 'store updated'
-                      // })
-                    });
+                    // User.updateOne({ name: req.body.name }, {
+                    //   $set: {
+                    //     id: Number(idNo+1)
+                    //   }
+                    // }, { upsert: true }, function (err, user) {
+                    //   // res.status(200).send({
+                    //   //   success: 'true',
+                    //   //   message: 'store updated'
+                    //   // })
+                    // });
 
                   res.status(200).send({
                     success: 'true',
@@ -867,16 +881,23 @@ app.post('/add/haseeb/EWallet', async (req, res) => {
                 } else {
 
             
-                    User.updateOne({ name: req.body.name }, {
-                      $set: {
-                        id: Number(idNo+1)
-                      }
-                    }, { upsert: true }, function (err, user) {
-                      // res.status(200).send({
-                      //   success: 'true',
-                      //   message: 'store updated'
-                      // })
-                    });
+                  axios.post('http://localhost:3000/add/refid',{
+                    storeName: req.body.storeName,
+                    id: Number(idNo+1),
+                    userID: req.body.userID
+                  }).then(resp => console.log(resp.data))
+                    .catch(err => console.log(err))
+                    
+                    // User.updateOne({ name: req.body.name }, {
+                    //   $set: {
+                    //     id: Number(idNo+1)
+                    //   }
+                    // }, { upsert: true }, function (err, user) {
+                    //   // res.status(200).send({
+                    //   //   success: 'true',
+                    //   //   message: 'store updated'
+                    //   // })
+                    // });
 
                   res.status(200).send({
                     success: 'true',
@@ -1120,6 +1141,61 @@ app.post('/signin', async (req, res) => {
 });
 
 
+
+
+app.post('/add/refid', async (req, res) => {
+  console.log(req.body)
+  let refID = new RefID({
+        storeName: req.body.storeName,
+        id: req.body.id,
+        userID: req.body.userID
+  });
+
+  refID.save(function (err) {
+    if (err) {
+      console.error(err);
+      res.status(200).send({
+        success: 'false',
+        message: 'refID not post',
+        refID,
+      })
+    } else {
+      res.status(200).send({
+        success: 'true',
+        message: 'refID post',
+        refID,
+      })
+    }
+  });
+
+});
+
+app.get('/get/refID/:id', (req, res) => {
+
+  RefID.find({userID: req.params.id})
+  .then(refids => {
+    res.json(refids);
+  })
+  .catch(err => res.status(404).json(err));
+}
+
+);
+
+
+
+app.put("/edit/user/refID/:id/:refID", async (req, res) => {
+  console.log("m", req.params.id)
+  User.updateOne({ _id: req.params.id }, {
+    $set: {
+      id: req.params.refID,
+    }
+  }, { upsert: true }, function (err, user) {
+    res.status(200).send({
+      success: 'true',
+      message: 'user updated'
+    })
+  });
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
