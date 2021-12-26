@@ -28,7 +28,7 @@
     "nodemon": "^1.19.4",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pug": "2.0.0-beta11",
+    "pug": "3.0.1",
     "serve-favicon": "^2.5.0",
     "time-stamp": "^2.2.0",
     "twilio": "^3.42.2"
